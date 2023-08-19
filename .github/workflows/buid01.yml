@@ -1,0 +1,22 @@
+name: Build V1
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtendo o código
+        uses: actions/checkout@v3
+      - name: Instalando dependências
+        run: npm ci
+        working-directory: ./class02_02
+      - name: Lint
+        run: npm run lint
+        working-directory: ./class02_02
+      - name: Testando o código
+        run: npm run test
+        working-directory: ./class02_02
+      - name: Construindo o código
+        run: npm run build
+        working-directory: ./class02_02
+      - name: Efetuando o deploy do código
+        run: echo "Realizando o deploy..."
