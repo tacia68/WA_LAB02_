@@ -1,0 +1,42 @@
+name: Build V2
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v3
+      - name: Instalar dependências
+        run: npm ci
+        working-directory: ./class02_02
+      - name: Lint
+        run: npm run lint
+        working-directory: ./class02_02
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v3
+      - name: Instalar dependências
+        run: npm ci
+        working-directory: ./class02_02
+      - name: Testar código
+        run: npm run test
+        working-directory: ./class02_02
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter código
+        uses: actions/checkout@v3
+      - name: Instalar dependências
+        run: npm ci
+        working-directory: ./class02_02
+      - name: Construir código
+        run: npm run build
+        working-directory: ./class02_02
+      - name: Fazer deploy do código
+        run: echo "Realizando deploy..."
